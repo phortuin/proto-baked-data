@@ -1,0 +1,31 @@
+{
+  "name": "proto-baked-data",
+  "version": "0.0.1",
+  "description": "Prototype for exploring the baked data architectural pattern",
+  "license": "MIT",
+  "homepage": "https://github.com/phortuin/proto-baked-data",
+  "author": {
+    "name": "Anne Fortuin",
+    "url": "phortuin.nl"
+  },
+  "repository": "phortuin/proto-baked-data",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "build": "ts-node ./scripts/build.ts",
+    "predev": "npm run build",
+    "dev": "netlify dev"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^1.0.0",
+    "@types/better-sqlite3": "^7.5.0",
+    "airtable": "^0.11.3",
+    "dotenv-safe": "^8.2.0",
+    "netlify-cli": "^9.16.4",
+    "ts-node": "^10.7.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^7.5.1"
+  }
+}
