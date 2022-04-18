@@ -14,7 +14,7 @@ dotenv.config()
 const AIRTABLE_TABLE:string = 'Table 1'
 
 // $RUN
-migrate()
+migrate(['names', 'products'])
     .then(() => seed())
     .catch(console.error)
 
@@ -30,6 +30,32 @@ async function seed(): Promise<void> {
         body: record.get('body'),
     }))
     await seedTable('names', <NamesRecord[]>parsedRecords)
+
+    const colors = [ '#09f', '#f90', '#90f', '#080' ]
+    const adverbs = [ 'great', 'tall', 'broad', 'fine' ]
+    const nouns1 = [ 'crocodile', 'overlord', 'giant', 'robot' ]
+    const nouns2 = [ 'tail', 'feast', 'river', 'ornithopter' ]
+
+    function random(range):number {
+        return Math.floor((Math.random() * range));
+    }
+
+    function makeName():string {
+        return `${adverbs[random(4)]}-${nouns1[random(4)]}-${nouns2[random(4)]}`
+    }
+
+    let products = []
+
+    for (let i = 0; i < 10000; i++) {
+        const product = {
+            name: makeName(),
+            color: colors[random(4)],
+            price: random(10) + 1,
+        }
+        products.push(product)
+    }
+
+    await seedTable('products', products)
 }
 
 /**

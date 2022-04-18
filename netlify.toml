@@ -15,3 +15,13 @@
   from = "/search"
   to = "/.netlify/functions/search"
   status = 200
+
+[[redirects]]
+  from = "/products"
+  to = "/.netlify/functions/product"
+  status = 200
+
+[[redirects]]
+  from = "/product/*"
+  to = "/.netlify/functions/product"
+  status = 200

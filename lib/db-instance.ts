@@ -42,12 +42,16 @@ function initDb(dbParams:dbOptions = {}): void {
 
 /**
  * Migrate: drop and create tables in our database
+ *
+ * @param {array} tables
  */
-async function migrate(): Promise<void> {
+async function migrate(tables:Array<string>): Promise<void> {
     if (!db) initDb()
     try {
-        const sql = await getSQLStatement('names', 'migrate')
-        db.exec(sql)
+        tables.forEach(async (table) => {
+            const sql = await getSQLStatement(table, 'migrate')
+            db.exec(sql)
+        })
     } catch(error) {
         console.error(error)
         process.exitCode = 1
@@ -122,7 +126,7 @@ function getOne(sql:string, param:string):any {
  *
  * @return {Array} list of records as objects
  */
-function getAll(sql:string, param:string):any[] {
+function getAll(sql:string, param?:string):any[] {
     if (!db) initDb()
     return param
         ? db.prepare(sql).all(param)

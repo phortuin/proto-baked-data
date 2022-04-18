@@ -65,16 +65,33 @@ function page(title:string, body:string):string {
             border-radius: 0.25em;
             color: white;
         }
+        .products {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 0;
+            margin-left: -0.5rem;
+            padding: 0;
+        }
+        .products li {
+            flex: 1 0 12vw;
+            height: 16rem;
+            margin: 0 0.5rem 1rem 0.5rem;
+            padding: 1rem;
+            font-size: 2em;
+            border-radius: 0.5rem;
+        }
+        .products li a {
+            color: white;
+        }
+        .image {
+            width: 30vw;
+            height: 20vh;
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <form method=get action=/search>
-            <label for=search>Search!</label>
-            <input type=text id=search name=q>
-            <button>Go</button>
-        </form>
-    </nav>
     <main>
         <h1>${title}</h1>
         ${body}
