@@ -10,7 +10,7 @@
   },
   "repository": "phortuin/proto-baked-data",
   "engines": {
-    "node": ">=16"
+    "node": "14"
   },
   "scripts": {
     "build": "ts-node ./scripts/build.ts",
