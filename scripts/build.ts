@@ -41,7 +41,7 @@ async function seed(): Promise<void> {
     }
 
     function makeName():string {
-        return `${adverbs[random(4)]}-${nouns1[random(4)]}-${nouns2[random(4)]}`
+        return `${adverbs[random(adverbs.length)]}-${nouns1[random(nouns1.length)]}-${nouns2[random(nouns2.length)]}`
     }
 
     let products = []
