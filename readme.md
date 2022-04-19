@@ -7,7 +7,7 @@ Based on [this blogpost](https://simonwillison.net/2021/Jul/28/baked-data/).
 ## Development
 
 ```bash
-$ npm run ci
+$ npm ci
 $ npm start
 ```
 
