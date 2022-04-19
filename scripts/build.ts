@@ -32,9 +32,9 @@ async function seed(): Promise<void> {
     await seedTable('names', <NamesRecord[]>parsedRecords)
 
     const colors = [ '#09f', '#f90', '#90f', '#080' ]
-    const adverbs = [ 'great', 'tall', 'broad', 'fine' ]
-    const nouns1 = [ 'crocodile', 'overlord', 'giant', 'robot' ]
-    const nouns2 = [ 'tail', 'feast', 'river', 'ornithopter' ]
+    const adverbs = [ 'great', 'tall', 'broad', 'fine', 'giant', 'awesome', 'typical' ]
+    const nouns1 = [ 'crocodile', 'overlord', 'dwarven', 'robot', 'ragdoll', 'ornithopter' ]
+    const nouns2 = [ 'meetup', 'feast', 'presence', 'happening', 'party', 'gathering', 'adventure' ]
 
     function random(range):number {
         return Math.floor((Math.random() * range));
