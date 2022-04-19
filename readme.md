@@ -20,4 +20,4 @@ Runs and builds on Netlify.
 - Written with TypeScript
 - Uses Airtable as data source
 - Uses SQLite database for ‘baked data’
-- During build, data from Airtable is stored in sqlite database that is available during runtime
+- During build, 10.000 generated 'products' along with data from Airtable is stored in sqlite database that is available during runtime
