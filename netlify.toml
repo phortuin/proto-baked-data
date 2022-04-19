@@ -6,6 +6,11 @@
   command = "npm run build"
   functions = "src/server/functions/"
 
+[dev]
+  autoLaunch = false
+  targetPort = 10001
+  command = "npm run dev:client"
+
 [[redirects]]
   from = "/blog/*"
   to = "/.netlify/functions/blog"
