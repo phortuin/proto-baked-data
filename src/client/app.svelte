@@ -2,15 +2,20 @@
     import { onMount } from 'svelte'
 
     let products = []
+    const options = {
+        headers: {
+            'Accept': 'application/json'
+        }
+    }
 
     onMount(async () => {
-        products = await fetch(`/product.json`)
+        products = await fetch(`/products`, options)
             .then(response => response.json())
     })
 
     async function handleChange(event) {
         if (event.target.value.length > 2) {
-            products = await fetch(`/product.json?q=${event.target.value}`)
+            products = await fetch(`/products?q=${event.target.value}`, options)
                 .then(response => response.json())
         }
     }

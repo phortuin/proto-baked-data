@@ -19,9 +19,16 @@ type NamesRecord = {
     body: string,
 }
 
+type ProductsRecord = {
+    name: string,
+    color: string,
+    price: number,
+}
+
 // API
 export {
     NamesRecord,
+    ProductsRecord,
     migrate,
     seedTable,
     getOne,

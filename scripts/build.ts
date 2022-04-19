@@ -5,7 +5,7 @@ import dotenv from 'dotenv-safe'
 import Airtable from 'airtable'
 
 // Local
-import { NamesRecord, seedTable, migrate } from '../lib/db-instance'
+import { NamesRecord, ProductsRecord, seedTable, migrate } from '../lib/db-instance'
 
 // Init env vars
 dotenv.config()
@@ -55,7 +55,7 @@ async function seed(): Promise<void> {
         products.push(product)
     }
 
-    await seedTable('products', products)
+    await seedTable('products', <ProductsRecord[]>products)
 }
 
 /**
