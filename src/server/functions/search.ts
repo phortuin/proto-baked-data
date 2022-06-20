@@ -43,7 +43,7 @@ const handler: Handler = async (event, context) => {
 function getBody(pages:any, query:string): string {
     const regex = new RegExp(`(${query})`, 'gi')
     const pageItems = pages.map(page => {
-        return `<li><a href="/blog/${ page.name }">${ page.name }</a><br/>${ page.body.replace(regex, `<mark>$1</mark>`) }</li>`
+        return `<li><a href="/blog/${ page.slug }">${ page.name }</a><br/>${ page.body.replace(regex, `<mark>$1</mark>`) }</li>`
     }).join('')
     return `<ul>${ pageItems }</ul>`
 }

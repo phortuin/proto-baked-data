@@ -1,7 +1,0 @@
-DROP TABLE IF EXISTS names;
-
-CREATE TABLE names (
-    id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    body TEXT
-);

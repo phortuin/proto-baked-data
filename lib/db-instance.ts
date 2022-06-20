@@ -14,12 +14,13 @@ const DB_DEFAULTS:dbOptions = {
 }
 
 // Types
-type NamesRecord = {
-    name: string,
+type BlogRecord = {
+    title: string,
     body: string,
+    slug: string,
 }
 
-type ProductsRecord = {
+type ProductRecord = {
     name: string,
     color: string,
     price: number,
@@ -27,8 +28,8 @@ type ProductsRecord = {
 
 // API
 export {
-    NamesRecord,
-    ProductsRecord,
+    BlogRecord,
+    ProductRecord,
     migrate,
     seedTable,
     getOne,

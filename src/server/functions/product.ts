@@ -2,7 +2,7 @@
 import { Handler, HandlerEvent, HandlerResponse } from "@netlify/functions";
 
 // Local
-import { ProductsRecord, getAll, getOne } from '../../../lib/db-instance'
+import { ProductRecord, getAll, getOne } from '../../../lib/db-instance'
 import { page, errorPage } from '../../../lib/page'
 import { getSlug } from '../../../lib/get-slug'
 
@@ -23,7 +23,7 @@ const handler: Handler = async (event, context):Promise<HandlerResponse> => {
         }
     } catch(error) {
         console.error(error)
-        respond(errorPage(error), 500, event.headers)
+        return respond(errorPage(error), 500, event.headers)
     }
 }
 
@@ -37,7 +37,7 @@ const handler: Handler = async (event, context):Promise<HandlerResponse> => {
  *
  * @return {object}
  */
-function respond(body:string, statusCode:number, headers:HandlerEvent.headers):HandlerResponse {
+function respond(body:string, statusCode:number, headers:HandlerEvent['headers']):HandlerResponse {
     return {
         statusCode,
         headers: {
@@ -56,7 +56,7 @@ function respond(body:string, statusCode:number, headers:HandlerEvent.headers):H
  * @param  {HandlerEvent.headers} headers
  * @return {HandlerResponse}
  */
-function singleResult(slug:string, headers:HandlerEvent.headers):HandlerResponse {
+function singleResult(slug:string, headers:HandlerEvent['headers']):HandlerResponse {
     const product = getOne('SELECT * FROM products WHERE name = ?', slug)
     return respond(page(product.name, getProductHtml(product)), 200, headers)
 }
@@ -69,7 +69,7 @@ function singleResult(slug:string, headers:HandlerEvent.headers):HandlerResponse
  * @param  {HandlerEvent.headers} headers
  * @return {HandlerResponse}
  */
-function results(query:string, pageNumber:number, headers:HandlerEvent.headers):HandlerResponse {
+function results(query:any, pageNumber:any, headers:HandlerEvent['headers']):HandlerResponse {
     const pageSize = 48
     const offset = (pageNumber)
         ? Number(pageNumber) - 1
@@ -105,7 +105,7 @@ function getOverviewHtml(products:Array<any>):string {
  * @param  {any} product
  * @return {string}
  */
-function getProductHtml(product:ProductsRecord):string {
+function getProductHtml(product:ProductRecord):string {
     return `<div class="image" style="background-color: ${product.color}"></div><h2>Now only €${product.price}</h2><button class="buy">Buy now!</button>`
 }
 
