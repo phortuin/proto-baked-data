@@ -18,6 +18,6 @@ Runs and builds on Netlify.
 ### Tech
 
 - Written with TypeScript
-- Uses Airtable as data source
+- Uses Directus as data source for blogs
 - Uses SQLite database for ‘baked data’
 - During build, 10.000 generated 'products' along with data from Airtable is stored in sqlite database that is available during runtime
