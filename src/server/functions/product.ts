@@ -77,7 +77,7 @@ function results(query:any, pageNumber:any, headers:HandlerEvent['headers']):Han
     const select = `SELECT * FROM products `
     const limit = `LIMIT ${offset * pageSize},${(offset + 1) * pageSize}`
     const products = (query)
-        ? getAll(`${select} WHERE name LIKE ? ${limit}`, `%${query}%`)
+        ? getAll(`${select} WHERE name LIKE ? ${limit}`, `%${query.replace(/ /g, '%')}%`)
         : getAll(`${select} ${limit}`)
     const body = (headers.accept === 'application/json')
         ? JSON.stringify(products)
@@ -96,7 +96,7 @@ function getOverviewHtml(products:Array<any>):string {
     const list = products.map(product => {
         return `<li style="background-color: ${product.color}"><a href="/product/${product.name}">${product.name} €${product.price}.00</a></li>`
     }).join('')
-    return `<ul class="products">${list}</ul>`
+    return `<form method=get action=products><p>Page: <input type=text name=page> <button>Go</button></p></form><ul class="products">${list}</ul>`
 }
 
 /**
@@ -106,7 +106,7 @@ function getOverviewHtml(products:Array<any>):string {
  * @return {string}
  */
 function getProductHtml(product:ProductRecord):string {
-    return `<div class="image" style="background-color: ${product.color}"></div><h2>Now only €${product.price}</h2><button class="buy">Buy now!</button>`
+    return `<div class="image" style="background-color: ${product.color}"></div><h2>Now only €${product.price}</h2><p><button class="buy">Buy now!</button></p><p><a href="javascript:history.go(-1)">&larr; Go back</a></p>`
 }
 
 export { handler }
