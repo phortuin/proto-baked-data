@@ -10,11 +10,19 @@ import { getSlug } from '../../../lib/get-slug'
 const handler: Handler = async (event, context) => {
     try {
         const slug = getSlug(event.path)
-        const allpages = getAll('SELECT slug, title FROM blogs')
-        const record = getOne('SELECT * FROM blogs WHERE slug = ?', slug)
-        return {
-            statusCode: 200,
-            body: page(record.title, getBody(allpages, record))
+        if (slug !== 'blog') {
+            const allpages = getAll('SELECT slug, title FROM blogs')
+            const record = getOne('SELECT * FROM blogs WHERE slug = ?', slug)
+            return {
+                statusCode: 200,
+                body: page(record.title, getBody(allpages, record))
+            }
+        } else {
+            const allpages = getAll('SELECT slug, title FROM blogs')
+            return {
+                statusCode: 200,
+                body: page('All blogs', getBody(allpages))
+            }
         }
     } catch(error) {
         console.error(error)
@@ -25,12 +33,14 @@ const handler: Handler = async (event, context) => {
     }
 }
 
-function getBody(allpages:Array<any>, record:BlogRecord):string {
-    const form = `<form method=get action=/search><label for=search>Search!</label><input type=text id=search name=q><button>Go</button></form>`
+function getBody(allpages:Array<any>, record?:BlogRecord):string {
+    const search = `<form method=get action=/search>Search: <input type=text id=search name=q> <button>Go</button></form>`
     const list = allpages.map(page => {
         return `<li><a href="/blog/${page.slug}">${page.title}</a></li>`
     }).join('')
-    return `${form}<p>${marked.parse(record.body)}</p><ul>${list}</ul>`
+    let body = ''
+    if (record) body = `<p>${marked.parse(record.body)}</p><h2><hr>Moar readings!</h2>`
+    return `${body}<ul>${list}<li><a href="/blog">&larr; See all blogs</a></li></ul><hr>${search}`
 }
 
 export { handler }
