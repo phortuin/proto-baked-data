@@ -23,13 +23,16 @@
 </script>
 
 <article>
+    <p>
+        Welcome to our website!
+    </p>
+    <h2>Our latest products</h2>
     <form>
-        <h1>Meen ik true</h1>
-        <input type="text" name="q" on:keyup={ handleChange }>
+        Type to filter: <input type="text" name="q" on:keyup={ handleChange }>
     </form>
     <ul>
         {#each products as product}
-        <li>{ product.name }</li>
+        <li><a href="/product/{ product.name }">{ product.name }</a></li>
         {/each}
     </ul>
 </article>

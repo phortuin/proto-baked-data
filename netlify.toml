@@ -12,6 +12,11 @@
   command = "npm run dev:client"
 
 [[redirects]]
+  from = "/"
+  to = "/.netlify/functions/home"
+  status = 200
+
+[[redirects]]
   from = "/blog/*"
   to = "/.netlify/functions/blog"
   status = 200
