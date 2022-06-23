@@ -6,6 +6,8 @@ declare global {
     interface ProcessEnv {
       AIRTABLE_API_KEY: string;
       AIRTABLE_BASE: string;
+      DIRECTUS_KEY: string;
+      DIRECTUS_TOKEN: string;
       NODE_ENV: 'development' | 'production';
     }
   }

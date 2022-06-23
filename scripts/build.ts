@@ -122,11 +122,13 @@ function getBlogsFromAirtable(): Promise<Airtable.Records<Airtable.FieldSet>> {
  * @return {Promise<PartialItem<BlogPost[]>>}
  */
 async function getBlogsFromDirectus(): Promise<PartialItem<BlogPost[]>> {
-    const directus = new Directus<Collections>(`https://${process.env.DIRECTUS_KEY}.directus.app/`)
-    await directus.auth.login({
-        email: process.env.DIRECTUS_EMAIL,
-        password: process.env.DIRECTUS_PASSWORD,
-    })
+    const options = {
+        auth: {
+            staticToken: process.env.DIRECTUS_TOKEN
+        }
+    }
+    const directus = new Directus<Collections>(`https://${process.env.DIRECTUS_KEY}.directus.app/`, options)
+
     const items = await directus.items('blogs').readByQuery()
     return items.data
 }
