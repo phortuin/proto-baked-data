@@ -10,8 +10,8 @@ const handler: Handler = async (event, context) => {
         if (event.queryStringParameters && event.queryStringParameters.q) {
             const query = event.queryStringParameters.q
             // moet natuurlijkmeer dan 1 result kunnen geven
-            const foundpages = getAll('SELECT * FROM names WHERE body LIKE ?', `%${query}%`)
-            if (foundpages) {
+            const foundpages = getAll('SELECT * FROM blogs WHERE body LIKE ?', `%${query}%`)
+            if (foundpages.length > 0) {
                 return {
                     statusCode: 200,
                     body: page(`Search results for ‘${query}’`, getBody(foundpages, query))
@@ -22,7 +22,7 @@ const handler: Handler = async (event, context) => {
                     headers: {
                         'content-type': 'text/html'
                     },
-                    body: page(`Search results for ‘${query}’`, 'Nothing found')
+                    body: page(`Search results for ‘${query}’`, '<p>Nothing found</p><p><a href="/blog">&larr; See all blogs</a></p>')
                 }
             }
         } else {
@@ -43,9 +43,9 @@ const handler: Handler = async (event, context) => {
 function getBody(pages:any, query:string): string {
     const regex = new RegExp(`(${query})`, 'gi')
     const pageItems = pages.map(page => {
-        return `<li><a href="/blog/${ page.slug }">${ page.name }</a><br/>${ page.body.replace(regex, `<mark>$1</mark>`) }</li>`
+        return `<li><a href="/blog/${ page.slug }">${ page.title }</a><br/>${ page.body.replace(regex, `<mark>$1</mark>`) }</li>`
     }).join('')
-    return `<ul>${ pageItems }</ul>`
+    return `<ul>${ pageItems }</ul><p><a href="/blog">&larr; See all blogs</a></p>`
 }
 
 export { handler }
